@@ -2670,3 +2670,8 @@
 2026-09-21 16:22:07,508 | [/my-account] status: 200 | confirmed: True
 2026-09-21 16:22:07,512 | [Cycle 531] 5.73s | index atual: None | csrf: None
 2026-09-21 16:22:07,512 | Authenticated session cookie: UoRaCCbmGu6YjaA8CJHkKlHMjGqUsxpL
+2026-09-21 22:06:05,105 | Testing code 0000...
+2026-09-21 22:06:05,105 | Code failed!
+2026-09-21 22:06:06,474 | Testing code 0001...
+2026-09-21 22:06:06,474 | Code failed!
+2026-09-21 22:06:06,474 | [Cycle 1] 5.12s | index atual: 2 | csrf: FbqpGUnMSyp43Oq6V6mmJQvHXy59AVoL
